@@ -1,18 +1,14 @@
-Experimental Identification of Physically Feasible Dynamic Parameters of ur10 Robot using LMI–SDP Techniques
+Experimental Identification of Physically Feasible Dynamic Parameters of xMate7p Robot using LMI–SDP Techniques
 =======================================================================================================================
 
-[![DOI](https://zenodo.org/badge/920/cdsousa/xMate7p_dyn_ident.png)](http://dx.doi.org/10.5281/zenodo.10537)
-
-*Experimental code and data associated with the paper:*
+**reference:**
 
 **Cristóvão D. Sousa and Rui Cortesão, "Physical feasibility of robot base inertial parameter identification: A linear matrix inequality approach," The International Journal of Robotics Research, vol. 33, no. 6, pp. 931–944, May. 2014, doi: [10.1177/0278364913514870](http://dx.doi.org/10.1177/0278364913514870)**
-
-[Postprint availabe from ResearchGate](http://www.researchgate.net/publication/262483999_Physical_feasibility_of_robot_base_inertial_parameter_identification_A_linear_matrix_inequality_approach)
 
 ------------------------
 
 
-Authors
+Paper Authors
 -------
 
 - Cristóvão D. Sousa, [crisjss@gmail.com](mailto:crisjss@gmail.com)
