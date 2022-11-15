@@ -9,7 +9,7 @@ def load_trajectory_data(file, freq):
     f = numpy.array(pd.read_csv(file, sep=',', header=None))
     row, col = f.shape
     sample_num = row    
-    dof = col/3     
+    dof = col/4     
 
     print(type(f), f.shape)
 
@@ -17,14 +17,15 @@ def load_trajectory_data(file, freq):
 
     q = numpy.zeros((row, dof))
     dq = numpy.zeros((row, dof))
+    ddq = numpy.zeros((row, dof))
     tau = numpy.zeros((row, dof))
 
     for d in range(dof):
         q[:, d] = f[:, d]
         dq[:, d] = f[:, dof + d]
-        tau[:, d] = f[:, 2*dof + d]
-
-    return t, q, dq, tau
+        ddq[:, d] = f[:, 2*dof + d]
+        tau[:, d] = f[:, 3*dof + d]
+    return t, q, dq, ddq, tau
 
 def plot_trajectory_data(t, q_raw, q_f, dq_f, ddq_f, tau_raw, tau_f):
     dof = q_raw.shape[1]
@@ -70,7 +71,7 @@ def plot_meas_pred_tau(t, tau_m, tau_p, joint_type=[]):
     t = t - t[0]
 
     fig = plt.figure()
-
+    plt.rc('legend', fontsize=6)
     for i in range(dof):
         plt_tau = fig.add_subplot(dof, 1, i + 1)
         plt_tau.margins(x=0.002, y=0.02)
@@ -231,7 +232,7 @@ def read_data( dof, h, rbtlogfile, trajreffile ):
     return t, q, tau, reft, trajref
 
 
-def diff_and_filt_data( dof, h, q_raw, tau_raw, fc_q, fc_dq, fc_ddq, fc_tau):
+def diff_and_filt_data( dof, h, q_raw, dq_raw, ddq_raw, tau_raw, fc_q, fc_dq, fc_ddq, fc_tau):
 
     s = q_raw.shape[0]
     
@@ -246,17 +247,21 @@ def diff_and_filt_data( dof, h, q_raw, tau_raw, fc_q, fc_dq, fc_ddq, fc_tau):
 
     for i in range(dof):
         q[:,i] = butter_filtfilt( 3, wc_q, q_raw[:,i] )
+
+        dq[:,i] = butter_filtfilt( 3, wc_q, dq_raw[:,i] )    
+        ddq[:,i] = butter_filtfilt( 3, wc_q, ddq_raw[:,i] )    
+        tau[:,i] = butter_filtfilt( 3, wc_q, tau_raw[:,i] )    
         
-        joint_i_dq_raw = central_diff(q_raw[:,i],h,2)
-        dq[:,i] = butter_filtfilt( 3, wc_dq, joint_i_dq_raw )
-        #dq[:,i] = central_diff(q[:,i],h,2)
+        # joint_i_dq_raw = central_diff(q_raw[:,i],h,2)
+        # dq[:,i] = butter_filtfilt( 3, wc_dq, joint_i_dq_raw )
+        # #dq[:,i] = central_diff(q[:,i],h,2)
         
-        joint_i_ddq_raw = central_diff( joint_i_dq_raw ,h,2)
-        ddq[:,i] = butter_filtfilt( 3, wc_ddq, joint_i_ddq_raw )
-        #ddq[:,i] = central_diff( central_diff(q[:,i],h,2) ,h,2)
+        # joint_i_ddq_raw = central_diff( joint_i_dq_raw ,h,2)
+        # ddq[:,i] = butter_filtfilt( 3, wc_ddq, joint_i_ddq_raw )
+        # #ddq[:,i] = central_diff( central_diff(q[:,i],h,2) ,h,2)
         
-        tau[:,i] = butter_filtfilt( 3, wc_tau, tau_raw[:,i] )
-        # tau[:,i] = butter_lfilter( 3, wc_tau, tau_raw[:,i] )
+        # tau[:,i] = butter_filtfilt( 3, wc_tau, tau_raw[:,i] )
+        # # tau[:,i] = butter_lfilter( 3, wc_tau, tau_raw[:,i] )
     
     return q, dq, ddq, tau
 
