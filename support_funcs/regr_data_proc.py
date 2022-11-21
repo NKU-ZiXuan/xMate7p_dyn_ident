@@ -66,11 +66,12 @@ def plot_trajectory_data(t, q_raw, q_f, dq_f, ddq_f, tau_raw, tau_f):
     plt.show()
 
 
-def plot_meas_pred_tau(t, tau_m, tau_p, joint_type=[]):
+def plot_meas_pred_tau(save_fig_path, t, tau_m, tau_p, joint_type=[]):
     sample_num, dof = tau_m.shape
     t = t - t[0]
 
     fig = plt.figure()
+    # fig = plt.figure(figsize=(12,70))  
     plt.rc('legend', fontsize=6)
     for i in range(dof):
         plt_tau = fig.add_subplot(dof, 1, i + 1)
@@ -87,11 +88,15 @@ def plot_meas_pred_tau(t, tau_m, tau_p, joint_type=[]):
         # else:
         #     plt_tau.set_ylabel(r'$f$ (N)')
         # plt_tau.legend(['Measured', "Predicted"])
-        if i == 0:
-            plt_tau.legend(bbox_to_anchor=(0.5, 1.52, 0.5, .102), loc='upper center', ncol=3,
-                           mode="expand", borderaxespad=0.)
 
+        # if i == 0:
+        #     # plt_tau.legend(bbox_to_anchor=(0.5, 1.52, 0.5, .102), loc='upper center', ncol=3,
+        #     #                mode="expand", borderaxespad=0.)
+        #     plt_tau.legend(loc='upper right',fontsize=10)
+
+        plt_tau.legend(loc='upper right',fontsize=10)
     plt.tight_layout()
+    plt.savefig(save_fig_path)
     plt.show()
 
 

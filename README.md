@@ -20,20 +20,14 @@ Paper Authors
 Research Notebook
 -----------------
 
-The research is done in [Python](http://www.python.org/) within an [IPython notebook](http://ipython.org/notebook.html) (the *xMate7p Dynamic Parameter Identification.ipynb* file).
+The research is done in [Python](http://www.python.org/) within an [IPython notebook](http://ipython.org/notebook.html) (the *xMate7p Dynamic Parameter Identification**.ipynb* file).
 Data is in *data* folder. Additional Python support code is in *support_funcs* folder.
-
-The file *xMate7p Dynamic Parameter Identification.html* is a **preview** of the notebook. **It can be seen online at:**
-
-**[xMate7p Dynamic Parameter Identification.html](https://github.com/NKU-ZiXuan/xMate7p_dyn_ident/blob/master/xMate7p%20Dynamic%20Parameter%20Identification.html)**
-
-
 
 How to run the code
 -------------------
 
-- clone the git repository (it contains code and data) from https://github.com/NKU-ZiXuan/xMate7p_dyn_ident.git
-- open the *xMate7p Dynamic Parameter Identification.ipynb* notebook with [IPython](http://ipython.org/)
+- clone the git repository (it contains code and data)
+- open the *xMate7p Dynamic Parameter Identification**.ipynb* notebook with [IPython](http://ipython.org/)
 - edit and run the code
 
 Dependencies:
